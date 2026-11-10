@@ -12,6 +12,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
+// Penjaga login terpusat: sesi habis / belum login -> ke halaman login (AJAX: 401), plus header no-store untuk
+// halaman yang butuh login. Harus terdaftar PALING ATAS supaya jalan sebelum hook lain (lihat hooks/Login_guard.php).
+$hook['post_controller_constructor'][] = array(
+    'class'    => 'Login_guard',
+    'function' => 'periksa',
+    'filename' => 'Login_guard.php',
+    'filepath' => 'hooks',
+);
+
 // Nge-update `user.last_activity` tiap kali user yang login membuka halaman
 // apa pun -- fitur status online (lihat status_online() di customs_helper.php
 // & application/hooks/Track_online.php) butuh ini supaya "Online" benar-benar

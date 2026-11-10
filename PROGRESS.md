@@ -5,6 +5,19 @@ Riwayat kerja Mantenbaru sengaja tidak dibawa ke sini.
 
 ---
 
+## 2026-11-10 — Fix: halaman panel masih terbuka setelah sesi habis
+
+- **Penyebab:** tidak ada pengecekan login terpusat; banyak method yang lupa cek sesi (mis. `Aspanel::revenue_lebih_lengkap`,
+  `client_lebih_lengkap*`, `get_expense_data`, `Crud_finance_operational::get_data`, `Crud_sales_marketing::get_data`,
+  `Crud_coa::get_detail`, ...) sehingga tetap terbuka tanpa login. Halaman panel juga tidak diberi header anti-cache,
+  jadi tombol Back / tab yang dipulihkan browser menampilkan salinan lama setelah logout / sesi habis.
+- **Fix:** hook baru `application/hooks/Login_guard.php` (didaftarkan paling atas di `config/hooks.php`): belum login →
+  diarahkan ke `login` (halaman klien `c_*` → `client/login`), AJAX dapat 401 JSON; sudah login → header `no-store`.
+  Halaman publik (welcome, login, link klien `c_lihat`/`c_concept`/`c_tamu_pdf`, naskah, `view_penawaran`,
+  `download_proposal`, 404) di-whitelist di `$publik` — **halaman baru yang harus bisa dibuka tanpa login wajib didaftarkan di sana.**
+- **Sisi browser** (`backend/sidebar.php`): tab yang tidak dipakai selama `sess_expiration` otomatis dimuat ulang (→ login
+  kalau sesi habis), halaman dari back-forward cache dimuat ulang, dan fetch/AJAX yang ditolak karena sesi habis pindah ke login.
+
 ## 2026-11-09 — Rebrand awal dari ERP Mantenbaru
 
 - **Branding:** semua teks "Mantenbaru/Maid" yang hardcode diganti. Judul & meta halaman home/login memakai "Younme";

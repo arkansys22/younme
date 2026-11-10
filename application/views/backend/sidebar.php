@@ -763,3 +763,48 @@
 			</div>
 		</aside>
 <!-- ===== Sidebar End ===== -->
+<script>
+// Deteksi sesi habis di tab yang dibiarkan terbuka (pasangan hooks/Login_guard.php):
+// - Tidak ada halaman panel yang dibuka di tab mana pun selama sess_expiration -> muat ulang, server akan
+//   mengarahkan ke login kalau sesinya memang sudah habis (kalau masih aktif, halaman cuma ter-refresh).
+// - Halaman dipulihkan dari back-forward cache -> muat ulang supaya status login dicek server.
+// - fetch/AJAX yang ditolak karena sesi habis (401 atau dialihkan ke /login) -> pindah ke halaman login.
+(function () {
+	var BATAS = <?= (int) config_item('sess_expiration') ?> * 1000;
+	var LOGIN = <?= json_encode(base_url($this->session->userdata('level') == '5' ? 'client/login' : 'login')) ?>;
+	var KUNCI = 'younme_terakhir_aktif';
+	var dimuat = Date.now();
+
+	function ke_login() { window.location.href = LOGIN; }
+	function sesi_habis(res) {
+		return res && (res.status === 401 || (res.redirected && /\/(client\/)?login(\/|\?|#|$)/.test(res.url)));
+	}
+
+	window.addEventListener('pageshow', function (e) { if (e.persisted) window.location.reload(); });
+
+	if (BATAS > 0) {
+		try { localStorage.setItem(KUNCI, String(dimuat)); } catch (e) {}
+		setInterval(function () {
+			var terakhir = dimuat;
+			try { terakhir = Math.max(dimuat, parseInt(localStorage.getItem(KUNCI), 10) || 0); } catch (e) {}
+			if (Date.now() - terakhir >= BATAS) window.location.reload();
+		}, 30000);
+	}
+
+	if (window.fetch) {
+		var fetch_asli = window.fetch;
+		window.fetch = function () {
+			return fetch_asli.apply(this, arguments).then(function (res) {
+				if (sesi_habis(res)) ke_login();
+				return res;
+			});
+		};
+	}
+
+	window.addEventListener('load', function () {
+		if (window.jQuery) {
+			window.jQuery(document).ajaxComplete(function (e, xhr) { if (xhr && xhr.status === 401) ke_login(); });
+		}
+	});
+})();
+</script>
