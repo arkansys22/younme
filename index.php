@@ -53,7 +53,23 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	// CI_ENV dibaca dari beberapa sumber: di LiteSpeed (Hostinger) `SetEnv` di .htaccess sering hanya terbaca lewat
+	// getenv() atau sebagai REDIRECT_CI_ENV (setelah rewrite ke index.php), bukan $_SERVER['CI_ENV'].
+	// Kalau tidak di-set sama sekali: localhost -> development, selain itu -> production (jangan pernah menampilkan
+	// error lengkap ke pengunjung situs live hanya karena env var lupa/gagal di-set).
+	$ci_env = '';
+	foreach (array('CI_ENV', 'REDIRECT_CI_ENV') as $ci_env_key)
+	{
+		if ( ! empty($_SERVER[$ci_env_key])) { $ci_env = $_SERVER[$ci_env_key]; break; }
+		if (($ci_env_val = getenv($ci_env_key)) !== FALSE && $ci_env_val !== '') { $ci_env = $ci_env_val; break; }
+	}
+	if ($ci_env === '')
+	{
+		$ci_env_host = isset($_SERVER['HTTP_HOST']) ? strtolower(preg_replace('/:\d+$/', '', $_SERVER['HTTP_HOST'])) : '';
+		$ci_env = (PHP_SAPI === 'cli' OR in_array($ci_env_host, array('localhost', '127.0.0.1', '[::1]'), TRUE)) ? 'development' : 'production';
+	}
+	define('ENVIRONMENT', strtolower(trim($ci_env)));
+	unset($ci_env, $ci_env_key, $ci_env_val, $ci_env_host);
 
 /*
  *---------------------------------------------------------------
