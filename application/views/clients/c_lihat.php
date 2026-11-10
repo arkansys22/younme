@@ -18,9 +18,9 @@ $vendors = $this->db->get_where('vendor', ['id_session' => $clients->id_session]
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php if($project->religion === 'Islam') { ?>
-	<title>Mantenbaru <?= $clients->f_bride_cname ?> dan <?= $clients->m_bride_cname ?></title>
+	<title>Younme <?= $clients->f_bride_cname ?> dan <?= $clients->m_bride_cname ?></title>
 	<?php } elseif ($project->religion === 'Kristen') { ?>
-	<title>Mantenbaru <?= $clients->m_bride_cname ?> dan <?= $clients->f_bride_cname ?></title>
+	<title>Younme <?= $clients->m_bride_cname ?> dan <?= $clients->f_bride_cname ?></title>
 	<?php } ?>
 	<!-- favicon -->
 	<link rel="shortcut icon" href="<?= favicon_url() ?>" type="image/x-icon">
@@ -1098,7 +1098,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							<h2 class="s-h-title">
 								Rate <span>Us</span>
 							</h2>
-							Ulasan Mereka Menjadi Saksi Kinerja Mantenbaru Dalam Memberikan Yang Terbaik Di Setiap Pernikahan
+							Ulasan Mereka Menjadi Saksi Kinerja Kami Dalam Memberikan Yang Terbaik Di Setiap Pernikahan
 						</div>
 					</div>
 				</div>
@@ -1107,14 +1107,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 							<div class="reviewr">
 								<div class="img">
-									<img src="<?php echo base_url()?>assets/frontend/assets/images/rev1.jpg" alt="">
+									<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 								</div>
 								<div class="content">
 									<h4 class="name">
-										Keupek Ridho
+										Nama Klien
 									</h4>
 									<p>
-										The Wedding Of Nurul & Ridho
+										The Wedding Of A &amp; B
 									</p>
 								</div>
 							</div>
@@ -1127,8 +1127,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							</div>
 							<div class="content">
 								<p>
-									Terimakasih Mantenbaru sudah melancarkan acara pernikahan kami, timnya keren, ramah, pelayanannya mantap pengantin kaya raja dan ratu dilayani.
-									Bisa kerjasama juga sama WO syari. Dah mantep manten baru ini keren
+									Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 								</p>
 							</div>
 						</div>
@@ -1137,14 +1136,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 							<div class="reviewr">
 								<div class="img">
-									<img src="<?php echo base_url()?>assets/frontend/assets/images/samson.jpg" alt="">
+									<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 								</div>
 								<div class="content">
 									<h4 class="name">
-										Samson Sinaga
+										Nama Klien
 									</h4>
 									<p>
-										The Wedding Of Samson & Dina
+										The Wedding Of A &amp; B
 									</p>
 								</div>
 							</div>
@@ -1157,7 +1156,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							</div>
 							<div class="content">
 								<p>
-									Seneng acara bisa berjalan dengan lancar dan tertata rapi, itu semua berkat mantenbaru yang sangat kooperatif dan bisa mewujudkan apa yang kami minta, apalagi ketika acara begitu supportif dan sigap ketika acara berlangsung. Terima kasih yang sebesar-besarnya mantenbaru.....😁🙏 …
+									Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 								</p>
 							</div>
 						</div>
@@ -1166,14 +1165,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 							<div class="reviewr">
 								<div class="img">
-									<img src="<?php echo base_url()?>assets/frontend/assets/images/arsyad.jpg" alt="">
+									<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 								</div>
 								<div class="content">
 									<h4 class="name">
-										Arsyad Husyaen
+										Nama Klien
 									</h4>
 									<p>
-										The Wedding Of Imas & Arsyad
+										The Wedding Of A &amp; B
 									</p>
 								</div>
 							</div>
@@ -1186,7 +1185,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							</div>
 							<div class="content">
 								<p>
-									Di support sama tim Mantenbaru Wedding Organizer sangat membantu, keperluan kita sangat di permudah, dan sangat profesional sampe kga keliatan mereka udah makan atau belum. Terimaksih support nya
+									Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 								</p>
 							</div>
 						</div>
@@ -1195,14 +1194,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 							<div class="reviewr">
 								<div class="img">
-									<img src="<?php echo base_url()?>assets/frontend/assets/images/dini.jpg" alt="">
+									<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 								</div>
 								<div class="content">
 									<h4 class="name">
-										Anisa Fitria Aldini
+										Nama Klien
 									</h4>
 									<p>
-										The Wedding Of Dini & Dhimas
+										The Wedding Of A &amp; B
 									</p>
 								</div>
 							</div>
@@ -1215,7 +1214,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							</div>
 							<div class="content">
 								<p>
-									Terima kasih untuk team manten baru! Di bantu a-z nya banget! Kayak tuan putri sehari🤭 sukses selalu kedepannya untuk mantenbaru! …
+									Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 								</p>
 							</div>							
 						</div>
@@ -1224,14 +1223,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 								<div class="reviewr">
 									<div class="img">
-										<img src="<?php echo base_url()?>assets/frontend/assets/images/yasmine.jpg" alt="">
+										<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 									</div>
 									<div class="content">
 										<h4 class="name">
-											Yasmine Alfredo
+											Nama Klien
 										</h4>
 										<p>
-											The Wedding Of Yasmine & Andre
+											The Wedding Of A &amp; B
 										</p>
 									</div>
 								</div>
@@ -1244,7 +1243,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 								</div>
 								<div class="content">
 									<p>
-										Alhamdulillah gak salah pilih vendor, acaraku jadi terorganized dan teamnya sangat bisa berkomunikasi dengan baik. Paham sama keinginan manten dan perhatian sama every single details yang ternyata di momen acara itu aku butuhkan, aku happy banget. Aku dan suamiku, mau terima kasih banyak untuk seluruh team MantenBaru yang aku gak bisa sebutkan satu persatu, semoga makin sukses untuk MantenBaru!
+										Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 									</p>
 								</div>
 						</div>
@@ -1253,14 +1252,14 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 						<div class="single-review">
 							<div class="reviewr">
 								<div class="img">
-									<img src="<?php echo base_url()?>assets/frontend/assets/images/ghazy2.jpg" alt="">
+									<img src="<?php echo base_url()?>assets/frontend/blank.png" alt="">
 								</div>
 								<div class="content">
 									<h4 class="name">
-										Ghazi Fadhil Muhammad
+										Nama Klien
 									</h4>
 									<p>
-										The Wedding Of Gita & Ghazy
+										The Wedding Of A &amp; B
 									</p>
 								</div>
 							</div>
@@ -1273,7 +1272,7 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 							</div>
 							<div class="content">
 								<p>
-									WO underrated banget. Komunikasi baik, fast respon, staff2nya juga supportif, asik2 tapi tetep profesional. Biaya terjangkau tapi hasilnya memuaskan.
+									Ulasan klien belum diisi. Ganti teks ini dengan testimoni klien Younme.
 								</p>
 							</div>
 						</div>
@@ -1283,9 +1282,9 @@ Kami berdoa agar kasih Tuhan senantiasa menyertai setiap langkah hidup kita, dan
 					<div class="col-lg-12">
 						<div class="section-heading">
 							<h3 class="">
-								<span>Ulasan Kamu Sangat Berarti Untuk Perkembangan Mantenbaru</span>
+								<span>Ulasan Kamu Sangat Berarti Untuk Perkembangan Kami</span>
 							</h3>
-							<a href="https://g.page/r/CfXM0XtrsWnfEAE/review" target="_blank" class="mybtn mybtn-bg"> <span><i class="fas fa-hand-holding-heart"> Berikan Ulasan Disini</i></span> </a> 
+							<a href="#" target="_blank" class="mybtn mybtn-bg"> <span><i class="fas fa-hand-holding-heart"> Berikan Ulasan Disini</i></span> </a> 
 						</div>
 					</div>
 				</div>

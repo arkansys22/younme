@@ -80,7 +80,7 @@
 
         <hr>
 
-        <p style="font-weight: bold; font-size: 13px; margin: 0;">MANTENBARU ORGANIZER</p>
+        <p style="font-weight: bold; font-size: 13px; margin: 0;"><?= strtoupper(nama_website()) ?> ORGANIZER</p>
         <p class="uppercase" style="font-size: 12px; margin: 2px 0 0 0;">Susunan Acara <?= $kategori_acara ? htmlspecialchars($kategori_acara->nama_kategori) : '' ?></p>
       </td>
     </tr>

@@ -820,7 +820,7 @@ if (!function_exists('url_gambar_pengaturan')) {
 }
 
 if (!function_exists('favicon_url')) {
-    function favicon_url() { return url_gambar_pengaturan('favicon', 'assets/backend/mb.png'); }
+    function favicon_url() { return url_gambar_pengaturan('favicon', 'assets/backend/favicon.ico'); }
 }
 if (!function_exists('logo_login_url')) {      // halaman login (latar terang)
     function logo_login_url() { return url_gambar_pengaturan('logo', 'assets/backend/logo-default.png'); }
@@ -851,7 +851,7 @@ if (!function_exists('logo_sidebar_gaya')) {
     }
 }
 if (!function_exists('nama_website')) {
-    function nama_website() { return pengaturan_website('nama_website', 'Mantenbaru'); }
+    function nama_website() { return pengaturan_website('nama_website', 'Younme'); }
 }
 
 // Daftar nomor rekening perusahaan (Pengaturan Website); array kosong kalau belum ada / tabel belum dimigrasi.
@@ -927,7 +927,7 @@ if (!function_exists('tampil_url_website')) {
     }
 }
 
-// "@username" dari link/handle sosial media (mis. https://www.instagram.com/mantenbaru/ -> @mantenbaru).
+// "@username" dari link/handle sosial media (mis. https://www.instagram.com/contoh/ -> @contoh).
 if (!function_exists('handle_sosmed')) {
     function handle_sosmed($url) {
         $url = trim((string) $url);

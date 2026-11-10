@@ -4,7 +4,7 @@ Backend/developer reference for this repo. Read `CLAUDE.md` first for the high-l
 
 ## Database reference (features built this cycle)
 
-None of the tables below exist in production yet — migrations are in `db/*.sql` (gitignored, run manually). Cross-check `PROGRESS.md` → "Next Steps" for the current pending list before assuming any of this works in prod.
+The full schema is in `db/younme_schema.sql` (structure only); initial master data is in `db/younme_seed_master.sql`. Both are gitignored like every `db/*.sql` — run manually on each environment.
 
 ### `user_absensi` — one row per user per day
 Key columns: `user_id_session`, `tanggal`, `status` (`Hadir`/`Sakit`/`Izin`), `jam_masuk`, `jam_masuk_ketentuan` (the cutoff *in effect at check-in time*, frozen — not recomputed later), `jam_keluar`, `foto_masuk`/`lat_masuk`/`lng_masuk`/`alamat_masuk` (+ `_keluar` equivalents), `keterangan` (auto-filled "Terlambat X menit" for late Hadir, or the manual reason text for Sakit/Izin). Unique on `(user_id_session, tanggal)` — one record per person per day, enforced both in code (`get_where` existence check before insert) and at the DB level.
@@ -41,7 +41,7 @@ If you touch the model, sanity-check both pages still agree on the same user/per
 
 ## Testing approach used in this codebase (no automated test suite)
 
-Everything gets verified by hand against the **local** dev DB (`db_erpmaid`) — production is never touched directly. The recurring pattern for anything requiring login as a specific user:
+Everything gets verified by hand against the **local** dev DB (`younme`) — production is never touched directly. The recurring pattern for anything requiring login as a specific user:
 
 1. Capture the target user's current password hash first: `SELECT password FROM user WHERE username = ?`.
 2. Overwrite it with a known bcrypt hash for testing (`php -r "echo password_hash('Test1234!', PASSWORD_BCRYPT);"`).
@@ -55,4 +55,4 @@ CSRF is enforced globally (`config.php`: `csrf_protection = TRUE`, `csrf_regener
 - **Route ordering** — see `CLAUDE.md`. This has caused at least two real bugs this cycle (a swapped-parameter-order bug in `absensi_rekap_detail` caught by testing, and route-shadowing risk when adding `rekap-gaji/(:any)/(:any)`).
 - **`user.crews_idsession`** can be empty string or the literal string `'-'` for users with no crew record — joins against `crew_projects.crew_id` naturally return zero rows in that case, no special-casing needed.
 - **Timezone**: `Aspanel`'s constructor calls `date_default_timezone_set('Asia/Jakarta')`. `created_at DEFAULT CURRENT_TIMESTAMP` columns use MySQL's own timezone setting, which is *not* guaranteed to agree with that — don't rely on `created_at` for anything Jakarta-local-time-sensitive without checking.
-- **Legacy `db_erp` vs current `db_erpmaid`**: earlier in this project's life there were two local databases; some columns believed missing (`project.closing_user_idsession`) turned out to exist in `db_erpmaid` but not the older `db_erp` dump. If a column seems to be missing, double-check which local DB you're actually looking at before assuming the schema needs a migration.
+- **Legacy `db_erp` vs current `younme`**: earlier in this project's life there were two local databases; some columns believed missing (`project.closing_user_idsession`) turned out to exist in `younme` but not the older `db_erp` dump. If a column seems to be missing, double-check which local DB you're actually looking at before assuming the schema needs a migration.

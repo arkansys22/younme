@@ -1,58 +1,19 @@
-# ROADMAP.md
+# ROADMAP.md — Younme ERP
 
-Rencana & pekerjaan yang masih tertunda untuk ERP Mantenbaru. Ini dokumen "ke depan" — untuk riwayat apa yang sudah dikerjakan & sudah dites, lihat `PROGRESS.md` (fitur dashboard/absensi/salary) dan `SECURITY_AUDIT.md` (hardening keamanan).
+## Pembersihan sisa Mantenbaru (manual, belum bisa dilakukan otomatis)
 
----
+- [ ] Pindahkan/hapus `db/db_erpmaid_full_2026-11-05.sql` (6 MB, **data asli Mantenbaru**) dan `db/db_erp.sql` dari folder web.
+- [ ] Hapus isi upload bawaan: `assets/uploads/client_susunan_acara/`, `assets/uploads/susunan_acara/`,
+      `assets/uploads/vendor_checklist/`, `uploads/absensi/*.jpg` (sisakan `index.html`).
+- [ ] Hapus/ganti aset berlogo Mantenbaru: `assets/backend/mb.png`, `assets/backend/src/images/logomantenbaru.png`,
+      `assets/backend/src/images/logo/logo mantenbaru merah-02.png` & `-03.png`, `assets/frontend/assets/images/logomantenbaru-03.png`,
+      `logo.png`, `logo.jpg`, `logo 2021-01-01.png`, serta foto klien di `assets/frontend/assets/images/` (mis. `rev1.jpg`, `arsyad.jpg`, `1-9.jpg`, `agenda*.jpg`).
+      Kalau file `*_susunan_acara`, `buku_tamu/*`, `janur/*` di `assets/backend` adalah desain Mantenbaru, ganti juga.
+- [ ] `.git`: kalau folder ini salinan repo Mantenbaru, putuskan remote lama (`git remote -v`) dan buat repo Younme baru; history lama masih berisi data/kredensial Mantenbaru.
+- [ ] Rotasi password SMTP lama Mantenbaru yang sempat tertulis di `User.php` (sudah dihapus dari kode, tapi masih ada di history git).
 
-## 🔴 Blocker aktif — perlu ditindaklanjuti sebelum fitur baru dipakai beneran
-
-- [x] ~~Route `/gaji-saya` & `/rekap-gaji/<user>/<periode>` belum ke-commit~~ — sudah di-commit (`2e1c97d`). Pastikan sudah di-push & di-pull ke server produksi.
-- [x] ~~Migrasi `user_absensi.sql`, `pengaturan_absensi.sql`, `kategori_gaji.sql`~~ — sudah dijalankan di server produksi (dikonfirmasi 2026-08-19).
-- [ ] **Jalankan 5 migrasi fitur Susunan Acara (per klien) di server produksi** — dikonfirmasi masih pending 2026-08-20 lewat error nyata di `maid.mantenbaru.com`: `Unknown column 'acara_ke' in 'WHERE'` saat buka `clients/susunan-acara/<id>`. Jalankan **urut sesuai daftar ini** (yang belakangan tergantung kolom/tabel dari yang sebelumnya) lewat phpMyAdmin Hostinger:
-  1. `db/susunan_acara.sql` — tabel `susunan_acara_kategori` + `susunan_acara` (data umum/template).
-  2. `db/clients_add_kategori_acara_waktu.sql` — kolom `kategori_acara_id_session` + `waktu_acara_mulai` di `clients`.
-  3. `db/client_susunan_acara.sql` — tabel `client_susunan_acara` (susunan acara per klien, hasil salin dari data umum).
-  4. `db/clients_add_kategori_acara_2.sql` — kolom `kategori_acara_2_id_session` + `waktu_acara_2_mulai` di `clients` (buat "Acara 2").
-  5. `db/client_susunan_acara_add_acara_ke.sql` — kolom `acara_ke` di `client_susunan_acara` (pemisah Acara 1 vs Acara 2) — **ini yang persis lagi error di produksi sekarang**.
-  Tanpa ini, seluruh menu Susunan Acara (termasuk Kategori Acara 1/2 di clients/edit, halaman daftar kegiatan, presentasi, Update/Preview PDF) error database di server.
-- [ ] **Jalankan migrasi `db/vendor_checklist_form.sql` di server produksi** (dibuat 2026-09-02) — fitur "Ceklist & TTD" di project/lihat untuk vendor Dekorasi/Catering, belum pernah dijalankan di `maid.mantenbaru.com`, cuma di lokal. Tanpa ini, tombol "Ceklist & TTD" error database di server. Folder `assets/uploads/vendor_checklist/` (tempat file tanda tangan PNG disimpan) dibuat otomatis oleh kode saat form pertama kali disimpan, tidak perlu dibuat manual.
-- [ ] **Jalankan 3 migrasi fitur "List Peralatan Event" di server produksi** (dibuat 2026-09-08) — belum pernah dijalankan di `maid.mantenbaru.com`, cuma di lokal. Jalankan urut:
-  1. `db/peralatan_event_kategori.sql` — tabel kategori (WO, Fotobooth) + seed 2 kategori awal itu.
-  2. `db/peralatan_event.sql` — template global daftar barang (per kategori).
-  3. `db/client_peralatan_event.sql` — daftar barang per project (hasil salin dari template, per kategori).
-  Tanpa ini, menu "Template Peralatan Event" & tombol "List Peralatan Event" di project/lihat error database di server.
-- [ ] **Jalankan migrasi `db/vendor_photos.sql` di server produksi** (dibuat 2026-09-15) — galeri foto vendor dengan jumlah bebas (menggantikan kolom `photo2`..`photo5` yang dulu dibatasi maksimal 4 foto tambahan). File SQL ini juga memindahkan (migrasi) data foto lama dari kolom `photo2`..`photo5` ke tabel baru `vendor_photos` secara otomatis lewat `INSERT...SELECT` — kolom lama SENGAJA tidak dihapus (dibiarkan, sudah tidak dipakai kode) buat jaga-jaga rollback. Tanpa migrasi ini, upload/lihat/hapus foto vendor (di `vendor/edit`, `vendor/lihat`, dan halaman client `clients/c_concept`) error database di server.
-- [ ] **Jalankan migrasi `db/clients_add_jubir_pria_naskah.sql` di server produksi** (dibuat 2026-09-15) — kolom `clients.jubir_pria_naskah`, pilihan naskah Akad/Ngunduh Mantu (dropdown "Naskah Jubir (Pria & Wanita)" di `clients/edit` & `clients/c_edit`, cuma muncul kalau field "Jubir Keluarga Pria" diisi, bukan "-"). **Satu parameter ini mengatur naskah Jubir Pria (CPP) MAUPUN Jubir Wanita (CPW) sekaligus** — sengaja tidak ada kolom/dropdown terpisah buat Wanita. Tanpa migrasi ini, dropdown-nya error database, dan naskah Jubir CPP/CPW (termasuk yang tampil inline di `clients/c_lihat`) fallback selalu ke versi "Akad".
-- [ ] **Jalankan migrasi `db/clients_shrink_freplacementname.sql` di server produksi** (dibuat 2026-09-15, TIDAK mendesak/tidak memblokir fitur manapun) — mengecilkan kolom `f_bride_freplacementname` dari VARCHAR(255) jadi TEXT (lossless, cuma teks bebas, tidak pernah dipakai di WHERE/JOIN/ORDER BY). **Latar belakang**: tabel `clients` di lokal ternyata sudah 69 kolom dan MENTOK batas ukuran baris InnoDB (`Row size too large`) — ketahuan waktu mencoba nambah kolom kedua buat naskah jubir (percobaan itu sendiri dibatalkan, tidak jadi dipakai). Kolom `jubir_pria_naskah` di atas sendiri TIDAK butuh migrasi ini (sudah berhasil ditambah duluan sebelum tabel mentok). Jalankan migrasi TEXT ini kalau suatu saat ada migrasi lain yang nambah kolom ke `clients` dan gagal dengan error serupa di produksi — longgarkan dulu pakai ini, baru ulangi migrasi yang gagal tadi.
-
-## 🟠 Sudah di-flag, belum dikerjakan
-
-- [ ] **Rotasi kredensial produksi** (ditunda atas permintaan sendiri saat security audit): ganti password DB produksi, set `CI_ENV=production` di server, opsional scrub password lama dari git history. Detail lengkap di `SECURITY_AUDIT.md` → "Wajib Dikerjakan Manual".
-- [ ] **Bug lama di `Aspanel.php`**: beberapa method (`profil`, `user_update`, `user_storage_bin`, `user_delete`, `identitaswebsite`, `logactivity`) memanggil fungsi `cek_session_akses_*` yang **tidak terdefinisi** (mis. `cek_session_akses_admin`, `cek_session_akses_level_3/4/5`). Kalau ke-trigger, PHP fatal error. Belum diperbaiki — sudah ada task terpisah yang di-spawn untuk ini sebelumnya.
-- [ ] **Verifikasi aturan bisnis "achieved"**: definisi project "achieved" saat ini cuma cek Pembayaran Kesatu + Kedua Paid. Beberapa project ternyata punya Pembayaran Ketiga/Keempat (ditemukan di kasus "Pernikahan Sania Daffa") yang tidak ikut dicek sama sekali. Perlu dikonfirmasi: apakah cukup Kesatu+Kedua, atau harus SEMUA installment lunas baru dianggap "achieved"? Ini memengaruhi 3 fitur sekaligus: estimasi revenue dashboard, top sales ranking, dan komisi persentase payroll — kalau aturannya berubah, ketiganya perlu diupdate bareng (lihat `CLAUDE-DEV.md` untuk daftar lokasi kodenya).
-- [ ] **Testing menyeluruh di staging/produksi** — semua fitur di atas baru diuji di data lokal, belum pernah terhadap data produksi asli.
-
-## 🟡 Ide pengembangan lanjutan (belum dikonfirmasi user — didiskusikan dulu sebelum dikerjakan)
-
-Ini ekstensi wajar dari fitur yang sudah ada, dicatat supaya tidak hilang — bukan komitmen, tunggu keputusan sebelum mulai:
-
-**Payroll / Rekap Gaji**
-- Kunci ("lock") payroll bulan yang sudah "final" supaya angkanya tidak ikut berubah kalau ada data absensi/project/pembayaran yang diedit setelah bulan itu ditutup. Saat ini semua angka dihitung live setiap kali halaman dibuka — kalau ada koreksi data lama, angka payroll bulan lalu bisa diam-diam berubah.
-- Export slip gaji per user per bulan ke PDF (infrastruktur PDF/dompdf sudah ada di project untuk fitur naskah, tinggal reuse).
-- Halaman rekap gaji **semua user sekaligus** untuk satu bulan (bukan pilih-1-nama) — berguna buat finance yang mau lihat total payroll bulanan sebelum transfer, bukan cek orang per orang.
-- Approval workflow: staff accounting hitung → admin/developer approve sebelum "final".
-
-**Absensi**
-- Radius/geofencing: tolak absen kalau titik koordinat GPS terlalu jauh dari lokasi kantor/venue yang ditentukan (saat ini titik koordinat cuma direkam, tidak divalidasi jaraknya).
-- Laporan absensi bulanan bisa di-export (CSV/PDF) buat lampiran ke slip gaji Harian.
-- Toleransi keterlambatan (mis. 15 menit pertama tidak dihitung terlambat) — saat ini "Terlambat" langsung terhitung dari menit pertama lewat jam ketentuan.
-
-**Umum**
-- Notifikasi (email/WhatsApp) saat payroll bulan baru siap dilihat, atau saat ada yang belum absen di jam tertentu.
-- Bersihkan sisa-sisa dua tabel database lama (`db_erp` vs `db_erpmaid`) yang sempat bikin bingung saat development — pastikan cuma satu sumber kebenaran sebelum fitur baru terus ditambah di atasnya.
-
----
-
-## Cara pakai dokumen ini
-
-Centang item kalau sudah selesai & sudah dites (bukan cuma "sudah dikerjakan di lokal"). Kalau ada keputusan bisnis baru yang mengubah salah satu item di atas, catat keputusannya di sini juga supaya tidak perlu digali ulang dari riwayat chat.
+## Fitur / konten Younme
+- [ ] Domain, email pengirim, Instagram Younme -> isi di Pengaturan Website & env SMTP.
+- [ ] Logo final Younme.
+- [ ] Testimoni klien Younme, pricelist, banner pricelist.
+- [ ] Review aturan bisnis "achieved" (Pembayaran Kesatu & Kedua) apakah sesuai alur pembayaran Younme.

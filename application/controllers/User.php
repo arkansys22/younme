@@ -155,7 +155,7 @@ class User extends CI_Controller
                 {
                   if($this->sendemail($email,$saltid,$username))
                                 {
-                                    $this->session->set_flashdata('msg','<div class="alert bg-5 text-center">Segera lakukan aktivasi akun mantenbaru dari email anda. Harap merefresh pesan masuk di email Anda.</div>');
+                                    $this->session->set_flashdata('msg','<div class="alert bg-5 text-center">Segera lakukan aktivasi akun dari email anda. Harap merefresh pesan masuk di email Anda.</div>');
                                     redirect(base_url('daftar')
                                     );
                             }else
@@ -187,10 +187,10 @@ class User extends CI_Controller
 
             $config = array (
               'protocol'    => 'smtp',
-              'smtp_host'   => 'mail.mantenbaru.com',
-              'smtp_port'   => '465',
-              'smtp_user'   => 'activation@mantenbaru.com',
-              'smtp_pass'   => 'dh4wy3p1c',
+              'smtp_host'   => getenv('SMTP_HOST') ?: '',
+              'smtp_port'   => getenv('SMTP_PORT') ?: '465',
+              'smtp_user'   => getenv('SMTP_USER') ?: '',
+              'smtp_pass'   => getenv('SMTP_PASS') ?: '',
               'mailtype'    => 'html',
               'charset'     => 'iso-8859-1',
               'wordwrap'    => TRUE
@@ -198,10 +198,10 @@ class User extends CI_Controller
             $this->load->library('email', $config);
             $this->email->set_newline("\r\n");
             $url = base_url()."user/confirmation/".$saltid;
-            $this->email->from('activation@mantenbaru.com', 'Mantenbaru');
+            $this->email->from(getenv('SMTP_USER') ?: 'no-reply@example.com', nama_website());
             $this->email->to($email);
-            $this->email->subject('Verifikasi Email - Mantenbaru');
-            $message = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body><p><strong>Hallo, $username</strong></p><p>Hanya tinggal 1 langkah lagi untuk bisa bergabung dengan Mantenbaru.</p><p>Silahkan mengklik link di bawah ini</p>".$url."<br/><p>Salam Hangat</p><p>Mantenbaru Team</p></body></html>";
+            $this->email->subject('Verifikasi Email - ' . nama_website());
+            $message = "<html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'></head><body><p><strong>Hallo, $username</strong></p><p>Hanya tinggal 1 langkah lagi untuk bisa bergabung dengan ".nama_website().".</p><p>Silahkan mengklik link di bawah ini</p>".$url."<br/><p>Salam Hangat</p><p>".nama_website()." Team</p></body></html>";
             $this->email->message($message);
             return $this->email->send();
       }

@@ -66,9 +66,9 @@ $islam = strtolower($religion) === 'islam'; // Cek apakah agama Islam
         </div>
     </div>
 
-    <!-- Bagian Mantenbaru Organizer -->
+    <!-- Bagian Organizer -->
     <div class="mb-4">
-        <h2 class="font-bold text-sm">MANTENBARU ORGANIZER</h2>
+        <h2 class="font-bold text-sm"><?= strtoupper(nama_website()) ?> ORGANIZER</h2>
         <p class="text-xs">SUSUNAN PANITIA</p>
     </div>
 

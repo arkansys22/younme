@@ -82,7 +82,7 @@ $islam = strtolower($religion) === 'islam'; // Cek apakah agama Islam
 <table width="100%" style="border: none; background-color: transparent; margin-bottom: 10px;">
     <tr>
         <td style="text-align: left; vertical-align: top; border: none;">
-            <h1 style="font-weight: bold; font-size: 14px; margin: 0;">MANTEN BARU ORGANIZER</h1>
+            <h1 style="font-weight: bold; font-size: 14px; margin: 0;"><?= strtoupper(nama_website()) ?> ORGANIZER</h1>
             <p style="font-size: 12px; margin: 0;">SUSUNAN PANITIA</p>
         </td>
     </tr>

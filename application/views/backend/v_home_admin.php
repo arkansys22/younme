@@ -3,19 +3,19 @@
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 <head>
 		<meta http-equiv="content-type" content="text/html;charset=utf-8" />
-	    <title>Maid Mantenbaru Wedding Organizer</title>
-	    <meta name="title" content="Vendor Pernikahan Terlengkap | Mantenbaru Wedding Organizer">
+	    <title>Younme Wedding Organizer</title>
+	    <meta name="title" content="Vendor Pernikahan Terlengkap | Younme Wedding Organizer">
 	    <meta name="site_url" content="<?php echo base_url()?>">
 	    <meta name="description" content="">
-	    <meta name="keywords" content="mantenbaru.com, mantenbaru, perencanaan investasi, vendor pernikahan, wedding organizer, wedding planner">
+	    <meta name="keywords" content="younme, vendor pernikahan, wedding organizer, wedding planner">
 
 	    <meta NAME="ROBOTS" CONTENT="NOINDEX">
 	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 	    <meta name="web_author" content="dhawyarkan.com">
 	    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 	    <meta name="apple-mobile-web-app-capable" content="yes" />
-	    <meta property="og:site_name" content="Mantenbaru">
-	    <meta property="og:title" content="Vendor Pernikahan Terlengkap | Mantenbaru Wedding Organizer">
+	    <meta property="og:site_name" content="Younme">
+	    <meta property="og:title" content="Vendor Pernikahan Terlengkap | Younme Wedding Organizer">
 	    <meta property="og:description" content="">
 	    <meta property="og:url" content="<?php echo base_url()?>">
 	    <meta property="og:image" content="<?php echo base_url()?>asset/frontend/aspanel/img/logo.png">

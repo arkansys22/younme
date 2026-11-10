@@ -4,11 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-An ERP for a wedding-organizer business (Mantenbaru), built on **CodeIgniter 3** (PHP MVC framework, framework source vendored under `system/`). No frontend build step, no package.json — views are server-rendered PHP with Tailwind pulled in via CDN (`<script src="https://cdn.tailwindcss.com">`) on the newer pages.
+An ERP for a wedding-organizer business (Younme), built on **CodeIgniter 3** (PHP MVC framework, framework source vendored under `system/`). No frontend build step, no package.json — views are server-rendered PHP with Tailwind pulled in via CDN (`<script src="https://cdn.tailwindcss.com">`) on the newer pages.
 
 Companion docs in this repo:
-- `PROGRESS.md` — running log of recent feature work and bug fixes, with testing notes and pending production migrations.
-- `SECURITY_AUDIT.md` — record of a past security-hardening pass (CSRF, password hashing migration, env-var config) and manual follow-ups still owed.
+- `PROGRESS.md` — running log of feature work and bug fixes for Younme (fresh start; the Mantenbaru history was removed).
+- `SECURITY_AUDIT.md` — short pre-deploy security checklist for Younme.
 - `.env.example` — the env vars a deploy needs (`DB_HOST/DB_USER/DB_PASS/DB_NAME`, `CI_ENV`, `ENCRYPTION_KEY`, `APP_BASE_URL`).
 
 ## Commands
@@ -66,5 +66,5 @@ Recurring UI patterns worth reusing rather than reinventing:
 
 ## Production deploy gotchas
 
-- Migrations under `db/*.sql` are gitignored (existing dumps in that folder always have been) and **must be run manually** on the production DB — check `PROGRESS.md`'s "Next Steps" section for which ones are still pending before assuming a feature works end-to-end in prod.
+- Migrations under `db/*.sql` are gitignored (existing dumps in that folder always have been) and **must be run manually** on the production DB — check `PROGRESS.md`'s "Next Steps" section for which ones are still pending.
 - Local dev DB config differences (credentials) live in Apache's `httpd.conf` via `SetEnv`, not in any tracked file — so `git pull` on the server never touches real credentials.

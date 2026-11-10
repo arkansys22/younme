@@ -97,9 +97,9 @@
               <input type="hidden" name="<?= $this->security->get_csrf_token_name() ?>" value="<?= $this->security->get_csrf_hash() ?>">
                 <label class="block mb-2"><strong>Judul : </strong><?= $pc->data_pricelist_judul ?></label>
                 <label class="block mb-2">
-                    <strong>Link Di Web Mantenbaru : </strong>
+                    <strong>Link Pricelist Online : </strong>
                     <?php if (!empty($pc->data_pricelist_url)): ?>
-                        <a href="<?= $pc->data_pricelist_url ?>" target="_blank">Preview di Mantenbaru.com</a>
+                        <a href="<?= $pc->data_pricelist_url ?>" target="_blank">Buka Pricelist</a>
                     <?php else: ?>
                         <span class="text-gray-400">Belum Tersedia</span>
                     <?php endif; ?>
